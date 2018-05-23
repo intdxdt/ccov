@@ -1,5 +1,5 @@
 # ccov 
-automation of coverage html using llvm-cov 
+personal util for c/c++ coverage using clion + cmake + llvm-cov 
 
 ## step 1 
 Add to `CMKaeLists.txt`, build and test.
