@@ -39,7 +39,6 @@ func main() {
 		_, ProjectName = filepath.Split(pwd)
 	}
 
-
 	fmt.Println(cmakeBuild)
 	build(pwd)
 
@@ -57,9 +56,15 @@ func build(pwd string) {
 
 	var llvmCov = fmt.Sprintf("cd %s && cd cmake-build-debug/CMakeFiles/%v.dir", pwd, ProjectName) + " && " +
 		fmt.Sprintf("llvm-cov gcov -f -b %v.gcda", MainFile) + " && " +
-		"lcov --directory . --base-directory . --gcov-tool ~/bin/llvm-gcov.sh --capture -o cov.info" + " && " +
+		"lcov " +
+		"--directory . " +
+		"--base-directory . " +
+		"--gcov-tool ~/bin/llvm-gcov.sh " +
+		"--capture -o cov.info" + " && " +
 		"genhtml cov.info -o outcov" + " && " +
-		fmt.Sprintf("google-chrome --app=file://%v/cmake-build-debug/CMakeFiles/%v.dir/outcov/index.html", pwd,ProjectName)
+		fmt.Sprintf("google-chrome "+
+			"--app=file://%v/cmake-build-debug/CMakeFiles/"+
+			"%v.dir/outcov/index.html", pwd, ProjectName)
 
 	shellRunExec(llvmCov)
 
@@ -90,4 +95,3 @@ func shellRunExec(cmdArgs string) {
 		log.Fatal(err)
 	}
 }
-
